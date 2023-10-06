@@ -33,7 +33,7 @@ export class UserController {
   }
 
   async save(ctx: Context) {
-    const rawData = ctx.req.json()
+    const rawData = await ctx.req.json()
 
     const result = createUserSchema.safeParse(rawData)
 
@@ -41,7 +41,11 @@ export class UserController {
       throw new HTTPException(400, result.error)
     }
 
-    const user = await this.writeRepository.save(result.data)
+    const user = await this.writeRepository.save(result.data).catch(() => {
+      throw new HTTPException(409, {
+        message: 'User already exists',
+      })
+    })
 
     return ctx.json(user, {
       status: 201,
@@ -51,7 +55,7 @@ export class UserController {
   async update(ctx: Context) {
     const id = ctx.get('id')
 
-    const rawData = ctx.req.json()
+    const rawData = await ctx.req.json()
 
     const result = createUserSchema.safeParse(rawData)
 

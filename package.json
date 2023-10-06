@@ -2,7 +2,8 @@
   "displayName": "hono-lambda-test",
   "type": "commonjs",
   "scripts": {
-    "dev": "tsx --watch src/server.ts"
+    "dev": "tsx --watch src/server.ts",
+    "dk": "drizzle-kit"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.123",

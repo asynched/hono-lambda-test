@@ -18,6 +18,7 @@ const userController = new UserController(
 const statusController = new StatusController()
 
 app.get('/status', (ctx) => statusController.getStatus(ctx))
+
 app.post('/users', (ctx) => userController.save(ctx))
 app.put('/users/:id', (ctx) => userController.update(ctx))
 app.delete('/users/:id', (ctx) => userController.delete(ctx))
