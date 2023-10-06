@@ -1,4 +1,1 @@
-```
-npm install
-npm run deploy
-```
+# hono-lambda-test
