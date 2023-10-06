@@ -1,4 +1,4 @@
-name: 'Build and release'
+name: Build and release
 
 on:
   push:
@@ -7,7 +7,10 @@ on:
 
 jobs:
   build-and-release:
+    name: Build and release
+    environment: production
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,3 +28,11 @@ jobs:
       
       - name: Build
         run: pnpm build
+
+      - name: Deploy
+        uses: serverless@github-action@v3.2
+        with:
+          args: deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
