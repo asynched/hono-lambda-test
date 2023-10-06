@@ -1,0 +1,30 @@
+service: hono-lambda-test
+frameworkVersion: '3'
+
+useDotenv: true
+
+provider:
+  name: aws
+  stage: dev
+  memorySize: 128
+  region: sa-east-1
+  runtime: nodejs18.x
+  environment:
+    DATABASE_URL: ${env:DATABASE_URL}
+    DATABASE_AUTH_TOKEN: ${env:DATABASE_AUTH_TOKEN}
+
+package:
+  patterns:
+    - "!node_modules/**"
+    - "node_modules/@libsql/**"
+
+functions:
+  main:
+    handler: dist/index.handler
+    events:
+      - httpApi:
+          path: /
+          method: ANY
+      - httpApi:
+          path: /{proxy+}
+          method: ANY

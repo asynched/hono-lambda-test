@@ -6,7 +6,7 @@ import {
 } from '@/domain/repository/user.repository'
 import { client } from '@/drizzle/client'
 import { users } from '@/drizzle/schema/user'
-import { hash, genSalt } from 'bcrypt'
+import { hash, genSalt } from 'bcryptjs'
 import { eq } from 'drizzle-orm'
 
 export class DrizzleUserWriteRepository implements UserWriteRepository {
